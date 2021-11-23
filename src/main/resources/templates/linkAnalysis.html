@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="For_Isida_Inform">
+    <meta name="author" content="Alexandr_Kozhekin">
+    <title>IsidaInform</title>
+</head>
+
+<body>
+
+<table class="mainTable">
+
+    <form action="/" th:object="${request}" method="post">
+
+        <tr>
+            <td>Анализируемая страница</br><input autofocus
+                                                  required
+                                                  id="url"
+                                                  name="url"
+                                                  th:field="${request.url}"/>
+            </td>
+        </tr>
+
+        <td class="button">
+            <input type="submit" value="Анализировать" name="Analysis"/>
+        </td>
+
+    </form>
+    </tr>
+</table>
+
+<table class="searchTable">
+
+    <tr>
+        <td>№ п/п</td>
+        <td>Имя ссылки</td>
+        <td>Адрес ссылки</td>
+    </tr>
+
+    <tr th:if="${LINK_INFO != null}" th:each="infoAboutLink : ${LINK_INFO}">
+        <td th:text="${infoAboutLink.id_link}"/>
+        <td th:text="${infoAboutLink.name_link}"/>
+        <td th:text="${infoAboutLink.address_link}"/>
+    </tr>
+
+    <td class="button">
+        <form action="/" method="get">
+            <input type="submit" value="Очистить" name="Clear"/>
+        </form>
+    </td>
+
+</table>
+
+<table>
+    <td th:if="${errors != null}">
+            <tr th:each="error : ${errors}">
+            <td th:text="${error.field}"></td>
+            <td th:text="${error.message}"></td>
+        </tr>
+    </td>
+</table>
+
+</body>
+</html>
