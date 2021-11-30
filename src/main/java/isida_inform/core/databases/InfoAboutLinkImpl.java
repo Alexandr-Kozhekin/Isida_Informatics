@@ -20,29 +20,31 @@ import org.springframework.transaction.annotation.Transactional;
 public class InfoAboutLinkImpl implements InfoAboutLinkRepository {
 
     @Override
-    public List<InfoAboutLink> linkAnalysis(String url) throws IOException, URISyntaxException {
+    public List<InfoAboutLink> linkAnalysis(String url) {
 
         List<InfoAboutLink> allInfo = new ArrayList<>();
 
-        Document document = Jsoup.connect(url).get();
+        try {
 
-        Elements elements = document.select("a");
+            Document document = Jsoup.connect(url).get();
 
-        List<Element> ele = new ArrayList<>(elements);
-        List<String> name = new ArrayList<>();
+            List<Element> ele = document.select("a");
 
-        long i = 1L;
+            long i = 1L;
 
-        for (Element element : ele) {
+            for (Element element : ele) {
 
-            String links = element.absUrl("href");
+                String links = element.absUrl("href");
 
-            name.add(links);
+                if (!links.isEmpty()) {
 
-            if (!links.isEmpty()) {
-
-                allInfo.add(new InfoAboutLink(i++, getDomainName(links), links));
+                    allInfo.add(new InfoAboutLink(i++, getDomainName(links), links));
+                }
             }
+
+        } catch (IOException  | URISyntaxException e) {
+
+            e.printStackTrace();
         }
 
         return allInfo;
