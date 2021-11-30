@@ -1,7 +1,7 @@
 package isida_inform.web_ui.web_controllers;
 
 
-import isida_inform.core.requests.LinkAnalysisRequests;
+import isida_inform.core.requests.LinkAnalysisRequest;
 import isida_inform.core.responses.LinkAnalysisResponse;
 import isida_inform.core.services.LinkAnalysisServices;
 
@@ -19,13 +19,13 @@ public class InfoAboutLinkController {
     @GetMapping(value = "/")
     public String showLinkAnalysisPage(ModelMap modelMap) {
 
-        modelMap.addAttribute("request", new LinkAnalysisRequests());
+        modelMap.addAttribute("request", new LinkAnalysisRequest());
 
         return "linkAnalysis";
     }
 
     @PostMapping("/")
-    public String processLinkAnalysisRequest(@ModelAttribute(value = "request") LinkAnalysisRequests requests,
+    public String processLinkAnalysisRequest(@ModelAttribute(value = "request") LinkAnalysisRequest requests,
                                              ModelMap modelMap) {
 
         LinkAnalysisResponse response = services.execute(requests);
