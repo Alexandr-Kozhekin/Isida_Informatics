@@ -1,13 +1,13 @@
 package isida_inform.core.requests;
 
-public class LinkAnalysisRequests {
+public class LinkAnalysisRequest {
 
     private String url;
 
-    public LinkAnalysisRequests() {
+    public LinkAnalysisRequest() {
     }
 
-    public LinkAnalysisRequests(String url) {
+    public LinkAnalysisRequest(String url) {
         this.url = url;
     }
 
