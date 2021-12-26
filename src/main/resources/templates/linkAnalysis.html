@@ -40,10 +40,10 @@
         <td>Адрес ссылки</td>
     </tr>
 
-    <tr th:if="${LINK_INFO != null}" th:each="infoAboutLink : ${LINK_INFO}">
-        <td th:text="${infoAboutLink.id_link}"/>
-        <td th:text="${infoAboutLink.name_link}"/>
-        <td th:text="${infoAboutLink.address_link}"/>
+    <tr th:if="${LINK_INFO != null}" th:each="linkContent : ${LINK_INFO}">
+        <td th:text="${linkContent.id}"/>
+        <td th:text="${linkContent.domainName}"/>
+        <td th:text="${linkContent.address}"/>
     </tr>
 
     <td class="button">

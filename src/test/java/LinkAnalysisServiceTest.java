@@ -1,12 +1,10 @@
-import isida_inform.core.databases.InfoAboutLinkImpl;
-import isida_inform.core.domain.InfoAboutLink;
-import isida_inform.core.requests.LinkAnalysisRequest;
-import isida_inform.core.services.LinkAnalysisServices;
-import isida_inform.core.services.validators.LinkAnalysisValidator;
+import isida_inform.core.databases.LinkAnalysisImpl;
+import isida_inform.core.requests.GetLinkContentRequest;
+import isida_inform.core.services.GetLinkContentServices;
+import isida_inform.core.services.validators.GetLinkContentValidator;
 
 import isida_inform.core.responses.*;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,6 +12,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import org.mockito.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,22 +22,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LinkAnalysisServiceTest {
 
     @Mock
-    private InfoAboutLinkImpl infoAboutLink;
+    private LinkAnalysisImpl infoAboutLink;
 
     @Mock
-    private LinkAnalysisValidator validator;
+    private GetLinkContentValidator validator;
 
     @InjectMocks
-    private LinkAnalysisServices services;
+    private GetLinkContentServices services;
 
     @Test
-    public void shouldCallMethodLinkAnalysisTest() {
+    public void shouldCallMethodLinkAnalysisTest() throws IOException, URISyntaxException {
 
-        LinkAnalysisRequest request = new LinkAnalysisRequest("");
+        GetLinkContentRequest request = new GetLinkContentRequest("");
 
-        LinkAnalysisResponse response = services.execute(request);
+        GetLinkContentResponse response = services.execute(request);
 
-        Mockito.verify(infoAboutLink).linkAnalysis(request.getUrl());
+        Mockito.verify(infoAboutLink).getLinkContent(request.getUrl());
 
         assertThat(response.hasErrors()).isFalse();
     }
@@ -45,7 +45,7 @@ public class LinkAnalysisServiceTest {
     @Test
     public void linkAnalysisWithInvalidRequestTest() {
 
-        LinkAnalysisRequest request = new LinkAnalysisRequest(null);
+        GetLinkContentRequest request = new GetLinkContentRequest(null);
 
         Set<CoreError> expected = Set.of(
                 new CoreError("", "не должен быть пустым!")
@@ -53,7 +53,7 @@ public class LinkAnalysisServiceTest {
 
         Mockito.when(validator.validate(request)).thenReturn(expected);
 
-        LinkAnalysisResponse response = services.execute(request);
+        GetLinkContentResponse response = services.execute(request);
 
         assertThat(response.hasErrors()).isTrue();
         assertThat(response.getErrors().size() == 1).isTrue();

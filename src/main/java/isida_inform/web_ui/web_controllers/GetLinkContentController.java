@@ -1,9 +1,9 @@
 package isida_inform.web_ui.web_controllers;
 
 
-import isida_inform.core.requests.LinkAnalysisRequest;
-import isida_inform.core.responses.LinkAnalysisResponse;
-import isida_inform.core.services.LinkAnalysisServices;
+import isida_inform.core.requests.GetLinkContentRequest;
+import isida_inform.core.responses.GetLinkContentResponse;
+import isida_inform.core.services.GetLinkContentServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,23 +12,23 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class InfoAboutLinkController {
+public class GetLinkContentController {
 
-    @Autowired private LinkAnalysisServices services;
+    @Autowired private GetLinkContentServices services;
 
     @GetMapping(value = "/")
     public String showLinkAnalysisPage(ModelMap modelMap) {
 
-        modelMap.addAttribute("request", new LinkAnalysisRequest());
+        modelMap.addAttribute("request", new GetLinkContentRequest());
 
         return "linkAnalysis";
     }
 
     @PostMapping("/")
-    public String processLinkAnalysisRequest(@ModelAttribute(value = "request") LinkAnalysisRequest requests,
+    public String processLinkAnalysisRequest(@ModelAttribute(value = "request") GetLinkContentRequest requests,
                                              ModelMap modelMap) {
 
-        LinkAnalysisResponse response = services.execute(requests);
+        GetLinkContentResponse response = services.execute(requests);
 
         if (response.hasErrors()) {
 
@@ -37,7 +37,7 @@ public class InfoAboutLinkController {
 
         } else {
 
-            modelMap.addAttribute("LINK_INFO", response.getInfoAboutLinkList());
+            modelMap.addAttribute("LINK_INFO", response.getLinkContents());
 
         }
 
