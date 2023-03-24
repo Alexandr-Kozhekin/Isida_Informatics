@@ -12,10 +12,8 @@ import java.util.*;
 import org.jsoup.nodes.*;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
-@Transactional
 public class LinkAnalysisImpl implements LinkAnalysisRepository {
 
     @Override
@@ -45,7 +43,7 @@ public class LinkAnalysisImpl implements LinkAnalysisRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ArrayList<Element>();
+        return new ArrayList<>();
     }
 
     private String getDomainName(String url) {

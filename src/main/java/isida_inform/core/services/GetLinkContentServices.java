@@ -7,14 +7,10 @@ import isida_inform.core.responses.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
 
 @Component
-@Transactional
 public class GetLinkContentServices {
 
     @Autowired private LinkAnalysisImpl linkAnalysis;
