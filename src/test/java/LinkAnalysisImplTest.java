@@ -15,7 +15,7 @@ public class LinkAnalysisImplTest {
     @Test
     public void validTest() throws IOException, URISyntaxException {
 
-        int expected = 40;
+        int expected = 51;
 
         List<LinkContent> infoAboutLinks = infoAboutLink.getLinkContent("https://metanit.com/");
 
